@@ -21,5 +21,5 @@ func TestClientNewID(t *testing.T) {
 	if err != nil {
 		t.Errorf("get id error: %v", err)
 	}
-	log.Info("get id success: %s", b)
+	log.Info("get id success: %d", b)
 }

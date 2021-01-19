@@ -14,8 +14,8 @@ type Client struct {
 }
 
 // 采集
-func (c *Client) NewID() ([]byte, error) {
-	var res []byte
+func (c *Client) NewID() (int64, error) {
+	var res int64
 	err := c.RpcClient.Call(
 		config.IDCall, &service.Args{}, &res,
 	)

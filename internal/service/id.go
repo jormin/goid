@@ -12,7 +12,7 @@ type Args struct {
 }
 
 // Generate a snowflake ID.
-func (id *ID) NewID(args *Args, res *[]byte) error {
-	*res = id.Node.Generate().Bytes()
+func (id *ID) NewID(args *Args, res *int64) error {
+	*res = id.Node.Generate().Int64()
 	return nil
 }
