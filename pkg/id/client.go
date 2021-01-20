@@ -3,9 +3,9 @@ package id
 import (
 	rpc2 "net/rpc"
 
-	"gitlab.wcxst.com/jormin/go-tools/rpc"
 	"gitlab.wcxst.com/jormin/goid/internal/config"
 	"gitlab.wcxst.com/jormin/goid/internal/service"
+	"gitlab.wcxst.com/jormin/gorpc/rpc"
 )
 
 // 客户端

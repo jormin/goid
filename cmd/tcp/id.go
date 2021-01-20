@@ -5,10 +5,10 @@ import (
 	"os"
 
 	"github.com/bwmarrin/snowflake"
-	"gitlab.wcxst.com/jormin/go-tools/log"
-	"gitlab.wcxst.com/jormin/go-tools/rpc"
 	"gitlab.wcxst.com/jormin/goid/internal/config"
 	"gitlab.wcxst.com/jormin/goid/internal/service"
+	"gitlab.wcxst.com/jormin/golog/log"
+	"gitlab.wcxst.com/jormin/gorpc/rpc"
 )
 
 // 初始化
