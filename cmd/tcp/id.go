@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"os"
 
 	"github.com/bwmarrin/snowflake"
 	"gitlab.wcxst.com/jormin/goid/internal/config"
@@ -14,8 +13,7 @@ import (
 // 初始化
 func init() {
 	log.SetPrefix("ID")
-	home, _ := os.UserHomeDir()
-	log.SetLogPath(fmt.Sprintf("%s/logs/id", home))
+	log.SetLogPath("/var/log/goid")
 }
 
 func main() {
@@ -28,8 +26,8 @@ func main() {
 		addr, &service.ID{Node: node},
 	)
 	if err != nil {
-		log.Error("Start server on %s error: %v", addr, err)
+		log.Error("start server on %s error: %v", addr, err)
 		return
 	}
-	log.Info("Start server on %s success", addr)
+	log.Info("start server on %s success", addr)
 }

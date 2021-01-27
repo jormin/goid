@@ -4,6 +4,6 @@ go 1.15
 
 require (
 	github.com/bwmarrin/snowflake v0.3.0
-	gitlab.wcxst.com/jormin/golog v0.0.0-20210120032513-70fc8c135cf9
-	gitlab.wcxst.com/jormin/gorpc v0.0.0-20210120032920-51f1073ee6b7
+	gitlab.wcxst.com/jormin/golog v0.0.0-20210127081216-e3ad73684b00
+	gitlab.wcxst.com/jormin/gorpc v0.0.0-20210127083553-eac72f2607ec
 )
