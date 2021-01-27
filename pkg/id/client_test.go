@@ -8,8 +8,8 @@ import (
 
 // 测试生成ID
 func TestClientNewID(t *testing.T) {
-	c, err := NewClient("127.0.0.1:8888")
-	// c, err := NewClient("111.229.255.133:30253")
+	// c, err := NewClient("127.0.0.1:8888")
+	c, err := NewClient("111.229.255.133:30253")
 	if err != nil {
 		t.Errorf("get id client error: %v", err)
 	}
