@@ -13,6 +13,9 @@ pipeline{
                     export GOPROXY=https://goproxy.io
                     # 下载依赖
                     /usr/local/go/bin/go mod download
+                    # 处理配置文件
+                    rm -f config.yaml
+                    cp config-prod.yaml config.yaml
                     # 编译
                     CGO_ENABLED=0 GOOS=linux GOARCH=amd64 /usr/local/go/bin/go build cmd/tcp/id.go
                 """

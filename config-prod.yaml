@@ -1,0 +1,8 @@
+# 环境
+env: prod
+
+# 日志
+log:
+  app: "DDC"
+  path: "/var/log/ddc"
+  format: "json"

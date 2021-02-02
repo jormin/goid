@@ -4,6 +4,7 @@ import (
 	"fmt"
 
 	"github.com/bwmarrin/snowflake"
+	"gitlab.wcxst.com/jormin/goid/internal"
 	"gitlab.wcxst.com/jormin/goid/internal/config"
 	"gitlab.wcxst.com/jormin/goid/internal/service"
 	"gitlab.wcxst.com/jormin/golog/log"
@@ -12,8 +13,7 @@ import (
 
 // 初始化
 func init() {
-	log.SetPrefix("ID")
-	log.SetLogPath("/var/log/goid")
+	internal.Init()
 }
 
 func main() {
