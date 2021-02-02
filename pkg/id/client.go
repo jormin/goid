@@ -1,6 +1,7 @@
 package id
 
 import (
+	"fmt"
 	rpc2 "net/rpc"
 
 	"gitlab.wcxst.com/jormin/goid/internal/config"
@@ -13,6 +14,12 @@ type Client struct {
 	RpcClient *rpc2.Client
 }
 
+// 配置
+type Config struct {
+	Host string `json:"host"`
+	Port int    `json:"port"`
+}
+
 // 采集
 func (c *Client) NewID() (int64, error) {
 	var res int64
@@ -23,8 +30,8 @@ func (c *Client) NewID() (int64, error) {
 }
 
 // 新客户端连接
-func NewClient(addr string) (*Client, error) {
-	rc, err := rpc.NewClient(addr)
+func NewClient(cfg *Config) (*Client, error) {
+	rc, err := rpc.NewClient(fmt.Sprintf("%s:%d", cfg.Host, cfg.Port))
 	if err != nil {
 		return nil, err
 	}
