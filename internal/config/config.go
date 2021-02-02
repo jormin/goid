@@ -5,7 +5,7 @@ import (
 	"os"
 
 	"github.com/spf13/viper"
-	"gitlab.wcxst.com/jormin/go-tools/helper"
+	"gitlab.wcxst.com/jormin/gohelper"
 	"gitlab.wcxst.com/jormin/golog/log"
 )
 
@@ -28,7 +28,7 @@ func Init() {
 	path, _ := os.Getwd()
 	viper.SetConfigType("yaml")
 	viper.SetConfigFile(fmt.Sprintf("%s/config.yaml", path))
-	helper.Must(viper.ReadInConfig())
+	gohelper.Must(viper.ReadInConfig())
 	// 初始化配置
 	initEnv()
 	initLogCfg()

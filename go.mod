@@ -5,6 +5,6 @@ go 1.15
 require (
 	github.com/bwmarrin/snowflake v0.3.0 // indirect
 	github.com/spf13/viper v1.7.1 // indirect
-	gitlab.wcxst.com/jormin/gobox v0.0.0-20210202060021-ef141fd3cdf0 // indirect
-	gitlab.wcxst.com/jormin/gorpc v0.0.0-20210202055309-b52ee001af47 // indirect
+	gitlab.wcxst.com/jormin/gohelper v0.0.0-20210202061908-f94dd59b32cb // indirect
+	gitlab.wcxst.com/jormin/gorpc v0.0.0-20210202060340-298a5ec004cb // indirect
 )
