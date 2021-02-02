@@ -1,6 +1,6 @@
 FROM alpine:latest
 
-COPY ./cmd/tcp/id /usr/bin
+COPY ./id /usr/bin
 COPY ./config.yaml /
 
 EXPOSE 8888
