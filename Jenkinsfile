@@ -12,9 +12,9 @@ pipeline{
                     # 配置国内地址
                     export GOPROXY=https://goproxy.io
                     # 下载依赖
-                    go mod download
+                    /usr/local/go/bin/go mod download
                     # 编译
-                    CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build cmd/tcp/id.go
+                    CGO_ENABLED=0 GOOS=linux GOARCH=amd64 /usr/local/go/bin/go build cmd/tcp/id.go
                 """
             }
         }
