@@ -31,6 +31,8 @@ gitlab.wcxst.com/jormin/golog v0.0.0-20210120032513-70fc8c135cf9 h1:ysBTpYHvL5jP
 gitlab.wcxst.com/jormin/golog v0.0.0-20210120032513-70fc8c135cf9/go.mod h1:Eqc7/fbWKuDb1KkQmm/XyKXqNjXK4uJ05Evnp/j1bnY=
 gitlab.wcxst.com/jormin/golog v0.0.0-20210127081216-e3ad73684b00 h1:IgZog39yPcfcnOGTCI057ilU2GAVsONZg+aS2zbYNoY=
 gitlab.wcxst.com/jormin/golog v0.0.0-20210127081216-e3ad73684b00/go.mod h1:Eqc7/fbWKuDb1KkQmm/XyKXqNjXK4uJ05Evnp/j1bnY=
+gitlab.wcxst.com/jormin/golog v0.0.0-20210131142609-82e0d1e4709b h1:NnGYwUnvNvrrtkwp3Nk93bcrArG3XxU8QqFtsZX5df8=
+gitlab.wcxst.com/jormin/golog v0.0.0-20210131142609-82e0d1e4709b/go.mod h1:Eqc7/fbWKuDb1KkQmm/XyKXqNjXK4uJ05Evnp/j1bnY=
 gitlab.wcxst.com/jormin/gorpc v0.0.0-20210120032920-51f1073ee6b7 h1:qsR/bIG08IOdP+SImrDjYaplq2S1ASCBwh5g+ItRvLE=
 gitlab.wcxst.com/jormin/gorpc v0.0.0-20210120032920-51f1073ee6b7/go.mod h1:npJT/bgvGRqTP9E55B4BqE7eBc8CQw8TJZ8/lfxTZJY=
 gitlab.wcxst.com/jormin/gorpc v0.0.0-20210127083553-eac72f2607ec h1:9foIQkWXpVSKdhAuYe7u4En3PUqETjIIJpgn1W3XNog=
