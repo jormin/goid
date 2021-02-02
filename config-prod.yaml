@@ -3,6 +3,6 @@ env: prod
 
 # 日志
 log:
-  app: "DDC"
+  app: "id"
   path: "/var/log/id"
   format: "json"

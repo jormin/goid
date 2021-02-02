@@ -3,6 +3,6 @@ env: local
 
 # 日志
 log:
-  app: "DDC"
+  app: "id"
   path: "/Users/Jormin/logs/id"
   format: "json"
