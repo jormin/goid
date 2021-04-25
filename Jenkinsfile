@@ -38,7 +38,7 @@ pipeline{
         stage('Deploy'){
             steps{
                 sh """
-                    ssh -p 22 root@111.229.255.133 "kubectl rollout restart deploy goid -n=jormin"
+                    ssh -p 22 root@82.157.101.82 "kubectl rollout restart deploy goid -n=jormin"
                 """
             }
         }
