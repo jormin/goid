@@ -24,14 +24,15 @@ pipeline{
         stage('Build'){
             steps{
                 sh """
-                    docker build -t ccr.ccs.tencentyun.com/jormin/goid:latest .
+                    docker build -t harbor.local.wcxst.com/jormin/goid:latest .
                 """
             }
         }
         stage('Push'){
             steps{
                 sh """
-                    docker push ccr.ccs.tencentyun.com/jormin/goid:latest
+                    docker login harbor.local.wcxst.com --username=jormin --password=iYA6caLPRiK7mJ6nLbVs8g==
+                    docker push harbor.local.wcxst.com/jormin/goid:latest
                 """
             }
         }
