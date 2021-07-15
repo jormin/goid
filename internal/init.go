@@ -1,8 +1,8 @@
 package internal
 
 import (
-	"gitlab.wcxst.com/jormin/goid/internal/config"
-	"gitlab.wcxst.com/jormin/golog/log"
+	"github.com/jormin/goid/internal/config"
+	"github.com/jormin/golog/log"
 )
 
 func Init() {

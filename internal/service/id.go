@@ -2,7 +2,7 @@ package service
 
 import (
 	"github.com/bwmarrin/snowflake"
-	"gitlab.wcxst.com/jormin/golog/log"
+	"github.com/jormin/golog/log"
 )
 
 type ID struct {

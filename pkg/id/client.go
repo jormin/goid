@@ -4,9 +4,9 @@ import (
 	"fmt"
 	rpc2 "net/rpc"
 
-	"gitlab.wcxst.com/jormin/goid/internal/config"
-	"gitlab.wcxst.com/jormin/goid/internal/service"
-	"gitlab.wcxst.com/jormin/gorpc/rpc"
+	"github.com/jormin/goid/internal/config"
+	"github.com/jormin/goid/internal/service"
+	"github.com/jormin/gorpc/rpc"
 )
 
 // 客户端

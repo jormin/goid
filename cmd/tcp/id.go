@@ -4,11 +4,11 @@ import (
 	"fmt"
 
 	"github.com/bwmarrin/snowflake"
-	"gitlab.wcxst.com/jormin/goid/internal"
-	"gitlab.wcxst.com/jormin/goid/internal/config"
-	"gitlab.wcxst.com/jormin/goid/internal/service"
-	"gitlab.wcxst.com/jormin/golog/log"
-	"gitlab.wcxst.com/jormin/gorpc/rpc"
+	"github.com/jormin/goid/internal"
+	"github.com/jormin/goid/internal/config"
+	"github.com/jormin/goid/internal/service"
+	"github.com/jormin/golog/log"
+	"github.com/jormin/gorpc/rpc"
 )
 
 // 初始化

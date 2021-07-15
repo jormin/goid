@@ -5,8 +5,8 @@ import (
 	"os"
 
 	"github.com/spf13/viper"
-	"gitlab.wcxst.com/jormin/gohelper"
-	"gitlab.wcxst.com/jormin/golog/log"
+	"github.com/jormin/gohelper"
+	"github.com/jormin/golog/log"
 )
 
 const (
