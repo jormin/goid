@@ -1,8 +1,0 @@
-# 环境
-env: local
-
-# 日志
-log:
-  app: "id"
-  path: "/Users/Jormin/logs/id"
-  format: "json"

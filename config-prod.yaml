@@ -1,8 +1,0 @@
-# 环境
-env: prod
-
-# 日志
-log:
-  app: "id"
-  path: "/var/log/id"
-  format: "json"

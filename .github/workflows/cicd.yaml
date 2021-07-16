@@ -1,0 +1,69 @@
+name: CI/CD
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: 1.16
+
+      - name: Sonarqube Scan
+        uses: sonarsource/sonarqube-scan-action@master
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+
+        # If you wish to fail your job when the Quality Gate is red, uncomment the
+        # following lines. This would typically be used to fail a deployment.
+      - name: Fail deployment when Quality Gate is red
+        uses: sonarsource/sonarqube-quality-gate-action@master
+        timeout-minutes: 5
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+      - name: Build
+        run: |
+          # 下载依赖
+          go mod download
+          # 编译
+          CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o id main.go
+
+      - name: Test
+        run: go test -bench -v ./...
+
+      - name: Login to Tencent Container Registry
+        uses: docker/login-action@v1
+        with:
+          registry: ccr.ccs.tencentyun.com
+          username: ${{ secrets.TENCENT_IMAGE_USERNAME }}
+          password: ${{ secrets.TENCENT_IMAGE_PASSWORD }}
+
+      - name: Build image
+        run: |
+          docker build -t ${{secrets.TENCENT_IMAGE}} -f ./Dockerfile .
+
+      - name: Push image
+        run: |
+          docker push ${{secrets.TENCENT_IMAGE}}
+
+  cd:
+    runs-on: ubuntu-latest
+    needs: ci
+    steps:
+      - name: Deploy k8s
+        run: |
+          mkdir -p ~/.ssh
+          echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
+          echo "${{secrets.DEPLOY_SSH_PRIVATE_PEM}}" > ~/.ssh/id_rsa
+          chmod 0600 ~/.ssh/id_rsa
+          ssh -p ${{secrets.DEPLOY_SSH_PORT}} root@${{secrets.DEPLOY_SSH_SERVER}} "kubectl rollout restart deploy goid -n=jormin"

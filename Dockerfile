@@ -1,7 +1,6 @@
 FROM alpine:latest
 
 COPY ./id /usr/bin
-COPY ./config.yaml /
 
 EXPOSE 8888
 
