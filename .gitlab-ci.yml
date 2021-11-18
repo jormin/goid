@@ -1,0 +1,71 @@
+stages:
+  - test
+  - build
+  - image
+  - deploy
+
+variables:
+  APP: goid
+  IMAGE_HOST: ccr.ccs.tencentyun.com
+  IMAGE_USERNAME: 100003612951
+  IMAGE_PASSWORD: 002b373aea22247d
+  IMAGE: jormin/$APP
+  IMAGE_ADDRESS: $IMAGE_HOST/$IMAGE:${CI_COMMIT_REF_NAME}-${CI_PIPELINE_IID}
+  ARGOCD_SERVER: argocd.wcxst.com
+  ARGOCD_TOKEN: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJkMGM0MmI4MC01NGM4LTRhNDAtYmZiNi0xYjExZTFiN2I0ZjUiLCJpYXQiOjE2MzcxNjIxMjksImlzcyI6ImFyZ29jZCIsIm5iZiI6MTYzNzE2MjEyOSwic3ViIjoiYWRtaW46YXBpS2V5In0.bTunYzbtfoRODOtV3pdYdi3OpWBbpCUrr4-eeurTGQY
+
+go-test:
+  stage: test
+  before_script:
+    - go env -w GO111MODULE=on
+    - go env -w GOPROXY=https://goproxy.io,direct
+    - go mod download
+  script:
+    - go test -v ./...
+  only:
+    - master
+
+go-build:
+  stage: build
+  before_script:
+    - go env -w GO111MODULE=on
+    - go env -w GOPROXY=https://goproxy.io,direct
+    - go mod download
+  script:
+    - CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o $APP main.go
+  artifacts:
+    paths:
+      - $APP
+    expire_in: 1h
+  only:
+    - master
+
+make-image:
+  stage: image
+  dependencies:
+    - go-build
+  script:
+    - docker login $IMAGE_HOST --username=$IMAGE_USERNAME --password=$IMAGE_PASSWORD
+    - docker build -t $IMAGE_ADDRESS -f ./Dockerfile .
+    - docker push $IMAGE_ADDRESS
+  only:
+    - master
+
+make-deploy:
+  stage: deploy
+  script:
+    - git clone ssh://git@gitlab.wcxst.com:2224/jormin/deploy.git
+    - cd deploy
+    - sed -i "s#$IMAGE_HOST/$IMAGE.*#$IMAGE_ADDRESS#" $APP/deploy.yaml
+    - git add . && git commit -m "${CI_COMMIT_MESSAGE} - ${CI_COMMIT_AUTHOR}"
+    - git push
+  only:
+    - master
+
+argocd:
+  stage: deploy
+  needs: [make-deploy]
+  script:
+    - argocd app sync $APP --auth-token $ARGOCD_TOKEN --server $ARGOCD_SERVER
+  only:
+    - master
