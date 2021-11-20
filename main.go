@@ -30,7 +30,7 @@ func main() {
 		},
 	)
 
-	_ = app.Listen(":8888")
+	_ = app.Listen(":80")
 }
 
 // 生成ID
