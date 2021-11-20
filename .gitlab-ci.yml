@@ -2,6 +2,7 @@ stages:
   - test
   - build
   - image
+  - chart
   - deploy
 
 variables:
@@ -10,7 +11,8 @@ variables:
   IMAGE_USERNAME: 100003612951
   IMAGE_PASSWORD: 002b373aea22247d
   IMAGE: jormin/$APP
-  IMAGE_ADDRESS: $IMAGE_HOST/$IMAGE:v1.0.${CI_PIPELINE_IID}
+  IMAGE_TAG: v1.0.${CI_PIPELINE_IID}
+  IMAGE_ADDRESS: $IMAGE_HOST/$IMAGE:$IMAGE_TAG
   ARGOCD_SERVER: argocd.wcxst.com
   ARGOCD_TOKEN: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJkMGM0MmI4MC01NGM4LTRhNDAtYmZiNi0xYjExZTFiN2I0ZjUiLCJpYXQiOjE2MzcxNjIxMjksImlzcyI6ImFyZ29jZCIsIm5iZiI6MTYzNzE2MjEyOSwic3ViIjoiYWRtaW46YXBpS2V5In0.bTunYzbtfoRODOtV3pdYdi3OpWBbpCUrr4-eeurTGQY
 
@@ -52,11 +54,11 @@ make-image:
     - master
 
 make-deploy:
-  stage: deploy
+  stage: chart
   script:
-    - git clone ssh://git@gitlab.wcxst.com:2224/jormin/deploy.git
-    - cd deploy
-    - sed -i "s#$IMAGE_HOST/$IMAGE.*#$IMAGE_ADDRESS#" $APP/deploy.yaml
+    - git clone ssh://git@gitlab.wcxst.com:2224/jormin/charts.git
+    - cd charts
+    - sed -i "s#tag: \".*#tag: \"$IMAGE_TAG\"#" $APP/values.yaml
     - git add . && git commit -m "${CI_COMMIT_MESSAGE} - ${CI_COMMIT_AUTHOR}"
     - git push
   only:
@@ -64,7 +66,6 @@ make-deploy:
 
 argocd:
   stage: deploy
-  needs: [make-deploy]
   script:
     - argocd app sync $APP --auth-token $ARGOCD_TOKEN --server $ARGOCD_SERVER
   only:

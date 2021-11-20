@@ -33,7 +33,7 @@ func main() {
 	_ = app.Listen(":80")
 }
 
-// 生成ID
+// NewID 生成ID
 func NewID() int64 {
 	return node.Generate().Int64()
 }
