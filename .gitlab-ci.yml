@@ -58,7 +58,8 @@ make-deploy:
   script:
     - git clone ssh://git@gitlab.wcxst.com:2224/jormin/charts.git
     - cd charts
-    - sed -i "s#tag: \".*#tag: \"$IMAGE_TAG\"#" $APP/values.yaml
+    - |
+      sed -i "s#tag: \".*#tag: \"$IMAGE_TAG\"#" $APP/values.yaml
     - git add . && git commit -m "${CI_COMMIT_MESSAGE} - ${CI_COMMIT_AUTHOR}"
     - git push
   only:
