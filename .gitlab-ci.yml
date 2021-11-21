@@ -13,6 +13,7 @@ variables:
   IMAGE: jormin/$APP
   IMAGE_TAG: ""
   IMAGE_ADDRESS: ""
+  IMAGE_LATEST_ADDRESS: $IMAGE_HOST/$IMAGE:latest
   ARGOCD_SERVER: argocd.wcxst.com
   ARGOCD_TOKEN: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJkMGM0MmI4MC01NGM4LTRhNDAtYmZiNi0xYjExZTFiN2I0ZjUiLCJpYXQiOjE2MzcxNjIxMjksImlzcyI6ImFyZ29jZCIsIm5iZiI6MTYzNzE2MjEyOSwic3ViIjoiYWRtaW46YXBpS2V5In0.bTunYzbtfoRODOtV3pdYdi3OpWBbpCUrr4-eeurTGQY
 
@@ -54,6 +55,8 @@ make-image:
     - docker login $IMAGE_HOST --username=$IMAGE_USERNAME --password=$IMAGE_PASSWORD
     - docker build -t $IMAGE_ADDRESS -f ./Dockerfile .
     - docker push $IMAGE_ADDRESS
+    - docker tag $IMAGE_ADDRESS $IMAGE_LATEST_ADDRESS
+    - docker push $IMAGE_LATEST_ADDRESS
   only:
     - master
 
