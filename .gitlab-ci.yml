@@ -14,6 +14,7 @@ variables:
   IMAGE_TAG: v1.0.${CI_PIPELINE_IID}
   IMAGE_ADDRESS: $IMAGE_HOST/$IMAGE:$IMAGE_TAG
   ARGOCD_SERVER: argocd.wcxst.com
+  ARGOCD_HOST: 82.157.101.82
   ARGOCD_TOKEN: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJkMGM0MmI4MC01NGM4LTRhNDAtYmZiNi0xYjExZTFiN2I0ZjUiLCJpYXQiOjE2MzcxNjIxMjksImlzcyI6ImFyZ29jZCIsIm5iZiI6MTYzNzE2MjEyOSwic3ViIjoiYWRtaW46YXBpS2V5In0.bTunYzbtfoRODOtV3pdYdi3OpWBbpCUrr4-eeurTGQY
 go-test:
   stage: test
@@ -62,9 +63,8 @@ make-deploy:
       git add . && git commit -m "${CI_COMMIT_MESSAGE} - ${CI_COMMIT_AUTHOR}"
       git push
       # argocd 同步
-      echp "argocd 同步"
-      ssh root@$ARGOCD_SERVER "cd /data/deploy && git pull"
-      ssh root@$ARGOCD_SERVER "argocd app set $APP --auth-token $ARGOCD_TOKEN --server $ARGOCD_SERVER --values $APP/values.yaml --sync-option ApplyOutOfSyncOnly=true --grpc-web"
-      ssh root@$ARGOCD_SERVER "argocd app sync $APP --auth-token $ARGOCD_TOKEN --server $ARGOCD_SERVER --prune --grpc-web"
+      ssh root@${ARGOCD_HOST} "cd /data/deploy && git pull"
+      ssh root@${ARGOCD_HOST} "argocd app set $APP --auth-token $ARGOCD_TOKEN --server $ARGOCD_SERVER --values $APP/values.yaml --sync-option ApplyOutOfSyncOnly=true --grpc-web"
+      ssh root@${ARGOCD_HOST} "argocd app sync $APP --auth-token $ARGOCD_TOKEN --server $ARGOCD_SERVER --prune --grpc-web"
   only:
     - master
