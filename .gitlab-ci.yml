@@ -62,6 +62,7 @@ make-deploy:
       git add . && git commit -m "${CI_COMMIT_MESSAGE} - ${CI_COMMIT_AUTHOR}"
       git push
       # argocd 同步
+      echp "argocd 同步"
       ssh root@$ARGOCD_SERVER "cd /data/deploy && git pull"
       ssh root@$ARGOCD_SERVER "argocd app set $APP --auth-token $ARGOCD_TOKEN --server $ARGOCD_SERVER --values $APP/values.yaml --sync-option ApplyOutOfSyncOnly=true --grpc-web"
       ssh root@$ARGOCD_SERVER "argocd app sync $APP --auth-token $ARGOCD_TOKEN --server $ARGOCD_SERVER --prune --grpc-web"
