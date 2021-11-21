@@ -58,8 +58,7 @@ make-deploy:
   script:
     - |
       # 修改 values.yaml 并提交 gitlab
-      git clone ssh://git@gitlab.wcxst.com:2224/jormin/deploy.git
-      cd charts
+      git clone ssh://git@gitlab.wcxst.com:2224/jormin/deploy.git && cd deploy
       sed -i "s#tag: \".*#tag: \"$IMAGE_TAG\"#" $APP/values.yaml
       git add . && git commit -m "${CI_COMMIT_MESSAGE} - ${CI_COMMIT_AUTHOR}"
       git push
