@@ -54,13 +54,17 @@ make-image:
     - master
 
 make-deploy:
-  stage: chart
+  stage: deploy
   script:
     - |
-      git clone ssh://git@gitlab.wcxst.com:2224/jormin/charts.git
+      # 修改 values.yaml 并提交 gitlab
+      git clone ssh://git@gitlab.wcxst.com:2224/jormin/deploy.git
       cd charts
       sed -i "s#tag: \".*#tag: \"$IMAGE_TAG\"#" $APP/values.yaml
       git add . && git commit -m "${CI_COMMIT_MESSAGE} - ${CI_COMMIT_AUTHOR}"
       git push
+      # argocd 同步
+      argocd app set $APP --values $APP/values.yaml --sync-option ApplyOutOfSyncOnly=true --grpc-web
+      argocd app sync $APP --prune --grpc-web
   only:
     - master
