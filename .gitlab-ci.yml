@@ -56,18 +56,11 @@ make-image:
 make-deploy:
   stage: chart
   script:
-    - git clone ssh://git@gitlab.wcxst.com:2224/jormin/charts.git
-    - cd charts
     - |
+      git clone ssh://git@gitlab.wcxst.com:2224/jormin/charts.git
+      cd charts
       sed -i "s#tag: \".*#tag: \"$IMAGE_TAG\"#" $APP/values.yaml
-    - git add . && git commit -m "${CI_COMMIT_MESSAGE} - ${CI_COMMIT_AUTHOR}"
-    - git push
-  only:
-    - master
-
-argocd:
-  stage: deploy
-  script:
-    - argocd app sync $APP --auth-token $ARGOCD_TOKEN --server $ARGOCD_SERVER
+      git add . && git commit -m "${CI_COMMIT_MESSAGE} - ${CI_COMMIT_AUTHOR}"
+      git push
   only:
     - master
